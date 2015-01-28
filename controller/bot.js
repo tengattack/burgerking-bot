@@ -5,7 +5,7 @@ var bot = new Router();
 var fs = require('fs');
 var config = require('./../config');
 
-var burgerking = require('./../lib/burgerking'),
+var TellBurgerKing = require('./../lib/burgerking'),
   ocr = require('./../lib/ocr').ocr;
 
 function saveRecord(scode, vcode) {
@@ -17,7 +17,8 @@ bot.post('/code', function *(next) {
   var r = { code: -1 };
   if (this.request.body && this.request.body.survey_code) {
     var survey_code = this.request.body.survey_code;
-    r = yield burgerking.AutoComplete(survey_code);
+    var tellbk = new TellBurgerKing();
+    r = yield tellbk.AutoComplete(survey_code);
     if (r.code === 0) {
       saveRecord(survey_code, r.verify_code);
     }

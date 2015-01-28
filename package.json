@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "co": "^4.1.0",
+    "co-body": "^1.0.0",
     "co-busboy": "*",
     "koa": "0.15.0",
     "koa-logger": "1.2.2",

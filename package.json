@@ -2,7 +2,7 @@
   "name": "burgerking-bot",
   "version": "0.1.0",
   "scripts": {
-    "start": "iojs ./app"
+    "start": "iojs ./bin/web"
   },
   "dependencies": {
     "co": "^4.1.0",

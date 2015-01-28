@@ -10,6 +10,20 @@
     .tips {
       display: none;
     }
+    .loading {
+      position: absolute;
+
+      width: 1em;
+      height: 1em;
+
+      background: url(/images/loading.gif) no-repeat;
+      background-size: 1em 1em;
+
+      display: none;
+    }
+    .loading.show {
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
@@ -17,14 +31,14 @@
     <h1>burgerking bot</h3>
   </header>
   <div class="container">
-    <h2>Image OCR</h2>
     <form id="bot-ocr" method="post" action="/bot/ocr" enctype="multipart/form-data">
+      <h2>Image OCR<div class="loading"></div></h2>
       <input id="survey_code_img" type="file" name="survey_code_img" required />
       <button class="submit" type="submit">Submit</button>
     </form>
     <br />
-    <h2>Input Code</h2>
     <form id="bot-code" method="post" action="/bot/code">
+      <h2>Input Code<div class="loading"></div></h2>
       <input id="survey_code" type="text" name="survey_code" value="" required />
       <button class="submit" type="submit">Submit</button>
       <div class="tips">
@@ -42,7 +56,7 @@
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
   <script>
     $(document).ready(function () {
-      var ajaxform = function (form, success) {
+      var ajaxform = function (form, cb) {
         var data = new FormData();
         $.each(form.find('input'), function(i, input) {
           input = $(input);
@@ -62,16 +76,22 @@
           processData: false,
           dataType: 'json',
           data: data,
-          success: success
+          success: cb,
+          error: function (xhr, status) {
+            alert(status);
+            cb();
+          }
         });
       };
       var predoform = function (form) {
         form.find('button.submit').prop('disabled', true);
         form.find('.tips').show();
+        form.find('.loading').addClass('show');
       };
       var afterdoform = function (form) {
         form.find('button.submit').prop('disabled', false);
         form.find('.tips').hide();
+        form.find('.loading').removeClass('show');
       };
       $('form#bot-ocr button.submit').click(function (e) {
         var form = $('form#bot-ocr');

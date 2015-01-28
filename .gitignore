@@ -28,3 +28,5 @@ node_modules
 .lock-wscript
 
 /config.js
+/public/data/records.txt
+/public/data/tmp/*

@@ -2,14 +2,25 @@
 var Router = require('koa-router');
 var bot = new Router();
 
+var fs = require('fs');
+var config = require('./../config');
+
 var burgerking = require('./../lib/burgerking'),
   ocr = require('./../lib/ocr').ocr;
+
+function saveRecord(scode, vcode) {
+  fs.appendFile(config['sys'].upload_dir + 'records.txt',
+    scode + ' ' + vcode + '\n', function (err) {});
+}
 
 bot.post('/code', function *(next) {
   var r = { code: -1 };
   if (this.request.body && this.request.body.survey_code) {
     var survey_code = this.request.body.survey_code;
     r = yield burgerking.AutoComplete(survey_code);
+    if (r.code === 0) {
+      saveRecord(survey_code, r.verify_code);
+    }
   }
   this.body = r;
 });

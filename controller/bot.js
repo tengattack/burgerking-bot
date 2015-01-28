@@ -2,7 +2,7 @@
 var Router = require('koa-router');
 var bot = new Router();
 
-var burgerking = require('./lib/burgerking');
+var burgerking = require('./../lib/burgerking');
 
 bot.post('/code', function *(next) {
   var r = { code: -1 };

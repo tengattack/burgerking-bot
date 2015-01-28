@@ -1,6 +1,10 @@
 <!doctype html>
 <html>
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>burgerking bot</title>
   <style>
     .tips {
@@ -61,9 +65,17 @@
           success: success
         });
       };
+      var predoform = function (form) {
+        form.find('button.submit').prop('disabled', true);
+        form.find('.tips').show();
+      };
+      var afterdoform = function (form) {
+        form.find('button.submit').prop('disabled', false);
+        form.find('.tips').hide();
+      };
       $('form#bot-ocr button.submit').click(function (e) {
         var form = $('form#bot-ocr');
-        form.find('button.submit').prop('disabled', true);
+        predoform(form);
         ajaxform(form, function (data) {
           if (data) {
             if (data.code === 0) {
@@ -72,12 +84,13 @@
               alert(data.message);
             }
           }
+          afterdoform(form);
         });
         e.preventDefault();
       });
       $('form#bot-code button.submit').click(function (e) {
         var form = $('form#bot-code');
-        form.find('button.submit').prop('disabled', true);
+        predoform(form);
         ajaxform(form, function (data) {
           if (data) {
             if (data.code === 0) {
@@ -86,6 +99,7 @@
               alert(data.message);
             }
           }
+          afterdoform(form);
         });
         e.preventDefault();
       });

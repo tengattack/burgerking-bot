@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <title>burgerking bot</title>
+  <style>
+    .tips {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>burgerking bot</h3>
+  </header>
+  <div class="container">
+    <h2>Image OCR</h2>
+    <form id="bot-ocr" method="post" action="/bot/ocr" enctype="multipart/form-data">
+      <input id="survey_code_img" type="file" name="survey_code_img" required />
+      <button class="submit" type="submit">Submit</button>
+    </form>
+    <br />
+    <h2>Input Code</h2>
+    <form id="bot-code" method="post" action="/bot/code">
+      <input id="survey_code" type="text" name="survey_code" value="" required />
+      <button class="submit" type="submit">Submit</button>
+      <div class="tips">
+        <p>You may need a minute to get the result, please be patient.</p>
+      </div>
+    </form>
+  </div>
+  <footer>
+    <p>
+      <a target="_blank" href="https://github.com/tengattack/burgerking-bot">view in github</a>
+      | MIT License
+      | Copyright (c) 2015 tengattack
+    </p>
+  </footer>
+  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      var ajaxform = function (form, success) {
+        var data = new FormData();
+        $.each(form.find('input'), function(i, input) {
+          input = $(input);
+          var type = input.attr('type');
+          if (type == 'file') {
+            if (input[0].files.length > 0) {
+              data.append(input.attr('name'), input[0].files[0]);
+            }
+          } else {
+            data.append(input.attr('name'), input.val());
+          }
+        });
+        $.ajax({
+          type: form.attr('method'),
+          url: form.attr('action'),
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          data: data,
+          success: success
+        });
+      };
+      $('form#bot-ocr button.submit').click(function (e) {
+        var form = $('form#bot-ocr');
+        form.find('button.submit').prop('disabled', true);
+        ajaxform(form, function (data) {
+          if (data) {
+            if (data.code === 0) {
+              $('form#bot-code #survey_code').val(data.text);
+            } else if (data.message) {
+              alert(data.message);
+            }
+          }
+        });
+        e.preventDefault();
+      });
+      $('form#bot-code button.submit').click(function (e) {
+        var form = $('form#bot-code');
+        form.find('button.submit').prop('disabled', true);
+        ajaxform(form, function (data) {
+          if (data) {
+            if (data.code === 0) {
+              alert('Verify Code: ' + data.verify_code);
+            } else if (data.message) {
+              alert(data.message);
+            }
+          }
+        });
+        e.preventDefault();
+      });
+    });
+  </script>
+</body>
+</html>

@@ -18,7 +18,7 @@ bot.post('/ocr', function *(next) {
   var r = { code: -1 };
   if (this.request.files && this.request.files.survey_code_img) {
     var f = this.request.files.survey_code_img;
-    var supportTypes = ['jpg', 'jpeg', 'gif', 'png'];
+    var supportTypes = ['.jpg', '.jpeg', '.gif', '.png'];
     if (supportTypes.indexOf(f.extname) !== -1) {
       var text = yield ocr(f.savepath);
       if (text) {

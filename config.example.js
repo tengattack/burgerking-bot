@@ -15,6 +15,7 @@ var config = {
     /* web server configurations */
     address: '127.0.0.1',
     port: '3006',
+    static_file_server: true
   },
 
   sys: {

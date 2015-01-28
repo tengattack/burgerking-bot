@@ -9,3 +9,11 @@ var app = module.exports = koa();
 
 middlewares(app);
 controller(app);
+
+/*
+* Development static file server only.
+* */
+if (config['web'].static_file_server) {
+  var serve = require('koa-static');
+  app.use(serve('public/'));
+}

@@ -28,10 +28,11 @@ if (data) {
           passing++;
           rlog('passing (' + passing + '/' + count + ')  \r');
         } else {
-          console.log(sv[0], sv[1], v, '|', sv[0][6], sv[0][8], '|', v[5]);
+          console.log(sv[0], sv[1], v, '|', sv[0][6], sv[0][8], '|', v[5], sv[1][5]);
         }
       }
     }
   }
+  rlog('passing (' + passing + '/' + count + ')  \r');
   rlog('\nfin.\n');
 }

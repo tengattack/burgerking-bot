@@ -13,8 +13,11 @@ function bkCalculateVcode(scode) {
   v += (10 - s[4]) % 10;
   v += s[1];
   v += s[9];
-  v += (s[7] < (s[9] == 0 ? s[9] + 1 : s[9])) ? s[7] : s[7] - 1;
-  v += ((s[9] == 0 ? 1 : s[9]) - s[7] + 9) % 10;
+
+  var s79 = s[7] * 10 + s[9];
+  var vt = s79 - Math.ceil((s79 - ((s[4] == 0) ? 1 : s[4]) + 1) / 10);
+  v += (vt < 10) ? ('0' + vt) : vt.toString();
+
   v += s[7];
   v += s[4];
   return v;

@@ -40,7 +40,8 @@
     <form id="bot-code" method="post" action="/bot/code">
       <h2>Input Code<div class="loading"></div></h2>
       <input id="survey_code" type="text" name="survey_code" value="" required />
-      <button class="submit" type="submit">Submit</button>
+      <button class="calculate">Calculate</button>
+      <button class="submit" type="submit">Check</button>
       <div class="tips">
         <p>You may need a minute to get the result, please be patient.</p>
       </div>
@@ -121,6 +122,21 @@
           }
           afterdoform(form);
         });
+        e.preventDefault();
+      });
+      $('form#bot-code button.calculate').click(function (e) {
+        var form = $('form#bot-code');
+        var s = '-' + $('form#bot-code #survey_code').val();
+        var v = '';
+        v += ((s[4] == 0 ? 1 : s[4]) - s[9] + 9) % 10;
+        v += (10 - s[4]) % 10;
+        v += s[1];
+        v += s[9];
+        v += (s[7] < (s[9] == 0 ? s[9] + 1 : s[9])) ? s[7] : s[7] - 1;
+        v += ((s[9] == 0 ? 1 : s[9]) - s[7] + 9) % 10;
+        v += s[7];
+        v += s[4];
+        alert('Verify Code: ' + v);
         e.preventDefault();
       });
     });

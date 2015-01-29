@@ -55,6 +55,7 @@
     </p>
   </footer>
   <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <script src="/scripts/burgerking-algo.js"></script>
   <script>
     $(document).ready(function () {
       var ajaxform = function (form, cb) {
@@ -126,16 +127,8 @@
       });
       $('form#bot-code button.calculate').click(function (e) {
         var form = $('form#bot-code');
-        var s = '-' + $('form#bot-code #survey_code').val();
-        var v = '';
-        v += ((s[4] == 0 ? 1 : s[4]) - s[9] + 9) % 10;
-        v += (10 - s[4]) % 10;
-        v += s[1];
-        v += s[9];
-        v += (s[7] < (s[9] == 0 ? s[9] + 1 : s[9])) ? s[7] : s[7] - 1;
-        v += ((s[9] == 0 ? 1 : s[9]) - s[7] + 9) % 10;
-        v += s[7];
-        v += s[4];
+        var scode = $('form#bot-code #survey_code').val();
+        var v = bkCalculateVcode(scode);
         alert('Verify Code: ' + v);
         e.preventDefault();
       });

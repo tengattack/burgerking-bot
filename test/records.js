@@ -24,11 +24,12 @@ if (data) {
       var sv = lines[i].split(' ');
       if (sv.length == 2) {
         var v = bkCalculateVcode(sv[0]);
-        if (v === sv[1]) {
+        var sv1 = sv[1].trim();
+        if (v === sv1) {
           passing++;
           rlog('passing (' + passing + '/' + count + ')  \r');
         } else {
-          console.log(sv[0], sv[1], v, '|', sv[0][6], sv[0][8], '|', v[5], sv[1][5]);
+          console.log(sv[0], sv1, v, '|', sv[0][6], sv[0][8], '|', v[5], sv1[5]);
         }
       }
     }

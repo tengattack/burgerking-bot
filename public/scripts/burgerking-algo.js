@@ -1,4 +1,13 @@
 
+function isVaildSCode(scode) {
+  if (typeof scode === 'string') {
+    if (scode && scode.length === 16) {
+      return /^\d+$/.test(scode)
+    }
+  }
+  return false
+}
+
 function bkCalculateVcode(scode) {
   var s = [0];
   var v = '';
@@ -21,4 +30,10 @@ function bkCalculateVcode(scode) {
   v += s[7];
   v += s[4];
   return v;
+}
+
+if (typeof exports !== 'undefined') {
+  // export for node
+  exports.calculateVcode = bkCalculateVcode;
+  exports.isVaildSCode = isVaildSCode;
 }

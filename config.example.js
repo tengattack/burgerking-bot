@@ -18,6 +18,10 @@ var config = {
     static_file_server: true
   },
 
+  bot: {
+    token: '[telegram-bot-token]',
+  },
+
   sys: {
     public_dir: public_dir,
     upload_dir: upload_dir,

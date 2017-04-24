@@ -1,8 +1,9 @@
 {
   "name": "burgerking-bot",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "scripts": {
-    "start": "iojs ./bin/web"
+    "start": "node ./bin/web",
+    "bot": "node ./bot"
   },
   "dependencies": {
     "co": "^4.1.0",

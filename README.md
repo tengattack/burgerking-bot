@@ -27,3 +27,7 @@ npm start
 ## License
 
 MIT
+
+## Reference
+
+[http://blog.tengattack.com/2015/01/29/burger-hacking/](http://blog.tengattack.com/2015/01/29/burger-hacking/) (in Chinese)
